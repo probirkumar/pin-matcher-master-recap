@@ -1,21 +1,21 @@
-function getPin(){
+function getPin() {
     const pin = generatePin();
     const pinString = pin + '';
-    if(pinString.length === 4){
+    if (pinString.length === 4) {
         return pin;
     }
-    else{
+    else {
         // console.log('pin length not 4 degit', pin);
         return getPin();
     };
 };
 
-function generatePin(){
-    const random = Math.round(Math.random()*10000);
+function generatePin() {
+    const random = Math.round(Math.random() * 10000);
     return random;
 };
 
-document.getElementById('generate-pin').addEventListener('click', function(){
+document.getElementById('generate-pin').addEventListener('click', function () {
 
     const pin = getPin();
     const displayPinField = document.getElementById('display-pin');
@@ -23,23 +23,44 @@ document.getElementById('generate-pin').addEventListener('click', function(){
     // console.log('app connection check');
 });
 
-document.getElementById('calculator').addEventListener('click', function(event){
+document.getElementById('calculator').addEventListener('click', function (event) {
     const numbers = event.target.innerText;
     const typedNumberField = document.getElementById('typed-numbers');
     const previousTypedNumberString = typedNumberField.value;
-    if(isNaN(numbers)){
-        if(numbers === 'C'){
+
+    if (isNaN(numbers)) {
+        if (numbers === 'C') {
             typedNumberField.value = '';
         }
-        else if(numbers === '<'){
+        else if (numbers === '<') {
             const digits = previousTypedNumberString.split('');
             digits.pop();
             const remainingDigits = digits.join('');
             typedNumberField.value = remainingDigits;
         }
     }
-    else{
+    else {
         const newTypedNumber = previousTypedNumberString + numbers;
         typedNumberField.value = newTypedNumber;
+    };
+});
+
+document.getElementById('submit-pin').addEventListener('click', function () {
+    const displayPinField = document.getElementById('display-pin');
+    const currentPin = displayPinField.value;
+
+    const typedNumberField = document.getElementById('typed-numbers');
+    const currentTypedNumber = typedNumberField.value;
+
+    const successPin = document.getElementById('success-pin');
+    const inncorrectPin = document.getElementById('inncorrect-pin');
+
+    if (currentTypedNumber === currentPin) {
+        successPin.style.display = 'block';
+        inncorrectPin.style.display = 'none';
+    }
+    else {
+        inncorrectPin.style.display = 'block';
+        successPin.style.display = 'none';
     };
 });
