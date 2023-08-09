@@ -22,3 +22,24 @@ document.getElementById('generate-pin').addEventListener('click', function(){
     displayPinField.value = pin;
     // console.log('app connection check');
 });
+
+document.getElementById('calculator').addEventListener('click', function(event){
+    const numbers = event.target.innerText;
+    const typedNumberField = document.getElementById('typed-numbers');
+    const previousTypedNumberString = typedNumberField.value;
+    if(isNaN(numbers)){
+        if(numbers === 'C'){
+            typedNumberField.value = '';
+        }
+        else if(numbers === '<'){
+            const digits = previousTypedNumberString.split('');
+            digits.pop();
+            const remainingDigits = digits.join('');
+            typedNumberField.value = remainingDigits;
+        }
+    }
+    else{
+        const newTypedNumber = previousTypedNumberString + numbers;
+        typedNumberField.value = newTypedNumber;
+    };
+});
